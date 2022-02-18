@@ -7,6 +7,6 @@ package cn.kurisu9.mirage.tank;
  **/
 public class Main {
     public static void main(String[] args) {
-        
+
     }
 }
