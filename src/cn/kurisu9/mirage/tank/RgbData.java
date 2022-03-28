@@ -5,23 +5,23 @@ package cn.kurisu9.mirage.tank;
  * @description rgba参数
  * @date 2022/2/16 10:13
  **/
-public class Rgba {
-     int alpha;
+public class RgbData {
+     double alpha;
 
-     int red;
+     double red;
 
-     int green;
+     double green;
 
-     int blue;
+     double blue;
 
-     public Rgba(int alpha, int red, int green, int blue) {
-          this.alpha = alpha;
+     public RgbData(double red, double green, double blue) {
           this.red = red;
           this.green = green;
           this.blue = blue;
      }
 
-     public Rgba(int red, int green, int blue) {
+     public RgbData(double alpha, double red, double green, double blue) {
+          this.alpha = alpha;
           this.red = red;
           this.green = green;
           this.blue = blue;
@@ -29,13 +29,13 @@ public class Rgba {
 
      public int toRGB() {
           int newPixel = 0;
-          newPixel += alpha;
+          newPixel += (int) alpha;
           newPixel = newPixel << 8;
-          newPixel += red;
+          newPixel += (int) red;
           newPixel = newPixel << 8;
-          newPixel += green;
+          newPixel += (int) green;
           newPixel = newPixel << 8;
-          newPixel += blue;
+          newPixel += (int) blue;
 
           return newPixel;
      }

@@ -1,5 +1,7 @@
 package cn.kurisu9.mirage.tank;
 
+import cn.kurisu9.mirage.tank.miragetank.MirageTank;
+
 import java.awt.image.BufferedImage;
 import java.util.function.Function;
 
@@ -14,18 +16,18 @@ public enum ImageUtils {
     /**
      * 将图片转换位像素点
      * */
-    public Rgba[][] toPixels(BufferedImage image, Function<Rgba, Rgba> rgbHandler) {
+    public RgbData[][] getPixels(BufferedImage image, Function<RgbData, RgbData> rgbHandler) {
         int w = image.getWidth();
         int h = image.getHeight();
 
-        Rgba[][] pixels = new Rgba[h][w];
+        RgbData[][] pixels = new RgbData[h][w];
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
                 int color = image.getRGB(j, i);
                 final int r = (color >> 16) & 0xff;
                 final int g = (color >> 8) & 0xff;
                 final int b = color & 0xff;
-                Rgba rgbData = new Rgba(r, g, b);
+                RgbData rgbData = new RgbData(r, g, b);
                 pixels[i][j] = rgbHandler.apply(rgbData);
             }
         }
@@ -34,27 +36,9 @@ public enum ImageUtils {
     }
 
     /**
-     * 将图片转换位像素点
+     * 将像素点转换为图片
      * */
-    public Rgba[][] toPixels(BufferedImage image) {
-        int w = image.getWidth();
-        int h = image.getHeight();
-
-        Rgba[][] pixels = new Rgba[h][w];
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < w; j++) {
-                int color = image.getRGB(j, i);
-                final int r = (color >> 16) & 0xff;
-                final int g = (color >> 8) & 0xff;
-                final int b = color & 0xff;
-                pixels[i][j] = new Rgba(r, g, b);
-            }
-        }
-
-        return pixels;
-    }
-
-    public BufferedImage toImage(Rgba[][] pixels) {
+    public static BufferedImage toImage(RgbData[][] pixels) {
         int h = pixels.length;
         int w = pixels[0].length;
 
@@ -67,5 +51,26 @@ public enum ImageUtils {
         }
 
         return image;
+    }
+
+    /**
+     * 将图片转换位像素点
+     * */
+    public RgbData[][] toPixels(BufferedImage image) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+
+        RgbData[][] pixels = new RgbData[h][w];
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                int color = image.getRGB(j, i);
+                final int r = (color >> 16) & 0xff;
+                final int g = (color >> 8) & 0xff;
+                final int b = color & 0xff;
+                pixels[i][j] = new RgbData(r, g, b);
+            }
+        }
+
+        return pixels;
     }
 }

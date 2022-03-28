@@ -50,8 +50,8 @@ public class MirageTank {
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedImage outside = ImageIO.read(new File("C:\\Users\\kurisu9\\Desktop\\新建文件夹 (2)\\outside.jpg"));
-        BufferedImage inside = ImageIO.read(new File("C:\\Users\\kurisu9\\Desktop\\新建文件夹 (2)\\inside.jpg"));
+        BufferedImage outside = ImageIO.read(new File("pic/outside.jpg"));
+        BufferedImage inside = ImageIO.read(new File("pic/inside.jpg"));
 
         RgbData[][] outsidePixels = getPixels(outside, MirageTank::gray);
 
@@ -87,15 +87,9 @@ public class MirageTank {
         }
 
         BufferedImage result = toImage(resultPixels);
-        ImageIO.write(result, "png", new File("C:\\Users\\kurisu9\\Desktop\\新建文件夹 (2)\\result.png"));
+        ImageIO.write(result, "png", new File("pic/result.png"));
 
     }
-
-//    private static RgbData mix(RgbData inside, RgbData outside) {
-//        double a = 1 - outside.red + inside.red;
-//        double r = inside.red / a;
-//        return new RgbData(a, r, r, r);
-//    }
 
     private static RgbData mix(RgbData inside, RgbData outside) {
         double a = 255.0 - outside.red + inside.red;
