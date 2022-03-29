@@ -1,7 +1,5 @@
 package cn.kurisu9.mirage.tank;
 
-import cn.kurisu9.mirage.tank.miragetank.MirageTank;
-
 import java.awt.image.BufferedImage;
 import java.util.function.Function;
 
@@ -10,13 +8,12 @@ import java.util.function.Function;
  * @description 图片工具类
  * @date 2022/2/16 10:18
  **/
-public enum ImageUtils {
-    INSTANCE;
+public class ImageUtils {
 
     /**
      * 将图片转换位像素点
      * */
-    public RgbData[][] getPixels(BufferedImage image, Function<RgbData, RgbData> rgbHandler) {
+    public static RgbData[][] getPixels(BufferedImage image, Function<RgbData, RgbData> rgbHandler) {
         int w = image.getWidth();
         int h = image.getHeight();
 
@@ -54,23 +51,18 @@ public enum ImageUtils {
     }
 
     /**
-     * 将图片转换位像素点
+     * 灰度像素点
      * */
-    public RgbData[][] toPixels(BufferedImage image) {
-        int w = image.getWidth();
-        int h = image.getHeight();
+    public static void gray(RgbData rgbData) {
+        final double r = rgbData.red;
+        final double g = rgbData.green;
+        final double b = rgbData.blue;
 
-        RgbData[][] pixels = new RgbData[h][w];
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < w; j++) {
-                int color = image.getRGB(j, i);
-                final int r = (color >> 16) & 0xff;
-                final int g = (color >> 8) & 0xff;
-                final int b = color & 0xff;
-                pixels[i][j] = new RgbData(r, g, b);
-            }
-        }
-
-        return pixels;
+        double gray = 0.222 * r + 0.707 * g + 0.071 * b;
+        //return new RgbData(0, gray, gray, gray);
+        rgbData.alpha = 0;
+        rgbData.red = gray;
+        rgbData.green = gray;
+        rgbData.blue = gray;
     }
 }
